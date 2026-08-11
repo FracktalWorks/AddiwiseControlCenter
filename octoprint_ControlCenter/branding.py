@@ -32,8 +32,10 @@ BRAND = {
     # GitHub repo the OctoPrint softwareupdate plugin checks for new releases.
     # Hosted under the FracktalWorks org, following the naming already used for
     # the other OEM builds (PenroseControlCenter, VolterraControlCenter).
-    # NOTE: this repo does not exist yet -- create it before shipping to
-    # hardware, or update checks will 404 against it.
+    #
+    # This repo MUST stay public: OctoPrint's softwareupdate plugin fetches
+    # release metadata and the pip archive unauthenticated, so making it
+    # private silently breaks updates on every unit in the field.
     "repo_user": "FracktalWorks",
     "repo_name": "AddiwiseControlCenter",
 
