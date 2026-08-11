@@ -1,4 +1,23 @@
-# PyQt 3D Printer Application
+# Addiwise Control Center
+
+> **This is the Addiwise Technologies OEM build of Control Center.**
+> It tracks `FracktalWorks/ControlCenter` upstream and differs only in identity,
+> artwork and update channel — there are no functional changes.
+>
+> **Before changing any branding, read [Documentation/WHITELABEL.md](Documentation/WHITELABEL.md).**
+> Every name, URL and logo path lives in
+> [`octoprint_ControlCenter/branding.py`](octoprint_ControlCenter/branding.py);
+> artwork is regenerated with [`tools/make_brand_assets.py`](tools/make_brand_assets.py).
+>
+> Three things that will bite you if you skip that doc:
+> - Editing a PNG does nothing until you re-run `pyrcc5` — the app reads the
+>   compiled `resource_rc.py`, never the files on disk.
+> - The UI is dark (`rgb(40,40,40)`); the Addiwise purple scores 1.62:1 contrast
+>   on it, so dark screens use the reversed `_white` artwork.
+> - `kinematics: fracktal_hybrid_corexy` in the firmware configs is a Klipper
+>   module name, **not** branding. Renaming it stops the printer moving.
+
+---
 
 This project is a PyQt application designed for controlling a 3D printer via a touchscreen interface. It connects to an OctoPrint instance using the OctoPrint client API, providing an intuitive user experience for managing print jobs and monitoring printer status.
 

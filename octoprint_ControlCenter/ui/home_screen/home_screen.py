@@ -4,6 +4,7 @@ from PyQt5.QtWidgets import QWidget, QToolButton, QPushButton, QLabel, QProgress
 from PyQt5 import QtGui, QtCore
 from utils.helpers import check_ui_elements
 from utils.logger import get_logger
+from branding import BRAND
 from utils.printer_ui_config import apply_nozzle_config_to_screen, is_dual_material_bay_printer
 from utils.styles import printer_status_green, printer_status_red, printer_status_amber
 from utils import dialog
@@ -297,7 +298,7 @@ class HomeScreen(QWidget):
                 self.printTime.setText("-")
                 self.playPauseButton.setDisabled(True)  # if file is not available, disable playPauseButton
                 # Reset preview image to default thumbnail when no file is loaded
-                self.printPreviewMain.setPixmap(QtGui.QPixmap(":/Logos & Branding/img/Logos/thumbnail.png"))
+                self.printPreviewMain.setPixmap(QtGui.QPixmap(BRAND["thumbnail_placeholder"]))
 
             else:
                 self.playPauseButton.setDisabled(False)  # if file available, make play button visible
@@ -341,7 +342,7 @@ class HomeScreen(QWidget):
                         self.printPreviewMain.setPixmap(scaled_pixmap)
                     else:
                         # Use resource path for thumbnail image
-                        self.printPreviewMain.setPixmap(QtGui.QPixmap(":/Logos & Branding/img/Logos/thumbnail.png"))
+                        self.printPreviewMain.setPixmap(QtGui.QPixmap(BRAND["thumbnail_placeholder"]))
         except Exception as e:
             self.logger.error("Error in HomeScreen.updatePrintStatus: {}".format(e))
             dialog.WarningOk(self, "Error in HomeScreen.updatePrintStatus: {}".format(e), overlay=True)

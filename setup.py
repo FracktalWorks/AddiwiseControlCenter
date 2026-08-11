@@ -1,6 +1,15 @@
 # coding=utf-8
+import os
+import sys
+
 from setuptools import setup
 import versioneer
+
+# Whitelabel identity lives in the plugin package so the runtime and the
+# packaging metadata can never drift apart. branding.py is dependency-free,
+# so importing it here is safe before the package is installed.
+sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), "octoprint_ControlCenter"))
+from branding import BRAND, homepage_url
 
 ########################################################################################################################
 ### Do not forget to adjust the following variables to your own plugin.
@@ -13,23 +22,23 @@ plugin_package = "octoprint_ControlCenter"
 
 # The plugin's human readable name. Can be overwritten within OctoPrint's internal data via __plugin_name__ in the
 # plugin module
-plugin_name = "Octoprint-ControlCenter"
+plugin_name = "Octoprint-{}".format(BRAND["product"].replace(" ", ""))
 
 # The plugin's version. Can be overwritten within OctoPrint's internal data via __plugin_version__ in the plugin module
 plugin_version = versioneer.get_version()   # replaced by versioneer
 
 # The plugin's description. Can be overwritten within OctoPrint's internal data via __plugin_description__ in the plugin
 # module
-plugin_description = """TouchScreen Plugin for Control Center"""
+plugin_description = """TouchScreen Plugin for {}""".format(BRAND["product"])
 
 # The plugin's author. Can be overwritten within OctoPrint's internal data via __plugin_author__ in the plugin module
-plugin_author = "Fracktal Works"
+plugin_author = BRAND["company"]
 
 # The plugin's author's mail address.
-plugin_author_email = "support@fracktal.in"
+plugin_author_email = BRAND["support_email"]
 
 # The plugin's homepage URL. Can be overwritten within OctoPrint's internal data via __plugin_url__ in the plugin module
-plugin_url = "https://github.com/FracktalWorks/ControlCenter"
+plugin_url = homepage_url()
 
 # The plugin's license. Can be overwritten within OctoPrint's internal data via __plugin_license__ in the plugin module
 plugin_license = "AGPLv3"

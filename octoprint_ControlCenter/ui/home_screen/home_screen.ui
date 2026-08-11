@@ -1327,7 +1327,7 @@ background-color: rgb(255, 255, 255,0);</string>
             <string/>
            </property>
            <property name="pixmap">
-            <pixmap resource="../resources/resource.qrc">:/Logos &amp; Branding/img/Logos/thumbnail.png</pixmap>
+            <pixmap resource="../resources/resource.qrc">:/Logos &amp; Branding/img/Logos/addiwise_thumbnail.png</pixmap>
            </property>
            <property name="scaledContents">
             <bool>true</bool>

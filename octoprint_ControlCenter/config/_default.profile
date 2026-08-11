@@ -24,7 +24,7 @@ extruder:
 heatedBed: true
 heatedChamber: false
 id: _default
-model: Fracktal Works Series
+model: Addiwise Series
 name: Twin Dragon 600
 volume:
   custom_box: false

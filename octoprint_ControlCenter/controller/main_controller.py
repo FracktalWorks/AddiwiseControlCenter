@@ -26,6 +26,7 @@ from utils.helpers import run_async
 from utils import dialog
 from ui.loading_screen.loading_screen import LoadingScreen
 from config import ip, apiKey, CRITICAL_PRINTER_ERRORS, IGNORED_PRINTER_ERRORS
+from branding import support_message
 
 
 logger = get_logger(__name__)
@@ -228,7 +229,7 @@ class MainController(QtCore.QObject):
                     dialog.WarningOk(
                         self.main_window, 
                         "Printer Config File corrupted and no valid backup found.\n"
-                        "Contact Fracktal support or raise a ticket at care.fracktal.in",
+                        + support_message(),
                         overlay=True
                     )
             else:
@@ -344,7 +345,7 @@ class MainController(QtCore.QObject):
                     # Reload printer configuration after restore
                     self.printer_model.reload_printer_configuration()
                     return
-                dialog.WarningOk(self.main_window, "Printer Config File corrupted. Contact Fracktal support or raise a ticket at care.fracktal.in")
+                dialog.WarningOk(self.main_window, "Printer Config File corrupted. " + support_message())
                 if self.printer_model.printer_status in ["Printing", "Paused"]:
                     self.octoprint_client.cancelPrint()
                     self.coolDownAction()
@@ -475,7 +476,7 @@ class MainController(QtCore.QObject):
             if dialog.WarningOk(self.main_window, msg, overlay=overlay):
                 self.logger.info("User confirmed printer restart - restarting now")
                 # Restart the printer system
-                os.system('sudo reboot now')
+                os.system('sudo systemctl reboot --no-wall >/dev/null 2>&1 &')
                 return True
             return False
         except Exception as e:

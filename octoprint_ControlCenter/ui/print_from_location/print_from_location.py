@@ -4,6 +4,7 @@ from PyQt5 import uic, QtGui, QtCore
 from PyQt5.QtWidgets import QWidget, QPushButton, QStackedWidget, QListWidget, QLabel, QToolButton
 from utils.helpers import check_ui_elements
 from utils.logger import get_logger
+from branding import BRAND
 from utils import dialog
 import base64
 from datetime import datetime
@@ -442,10 +443,10 @@ class PrintFromLocation(QWidget):
                 labelObject.setPixmap(pixmap)
             else:
                 # Use resource path for thumbnail image
-                labelObject.setPixmap(QtGui.QPixmap(":/Logos & Branding/img/Logos/thumbnail.png"))
+                labelObject.setPixmap(QtGui.QPixmap(BRAND["thumbnail_placeholder"]))
         except Exception as e:
             # Use resource path for thumbnail image
-            labelObject.setPixmap(QtGui.QPixmap(":/Logos & Branding/img/Logos/thumbnail.png"))
+            labelObject.setPixmap(QtGui.QPixmap(BRAND["thumbnail_placeholder"]))
             self.logger.error("Error in PrintFromLocation.displayThumbnail: {}".format(e))
 
     def showEvent(self, event):

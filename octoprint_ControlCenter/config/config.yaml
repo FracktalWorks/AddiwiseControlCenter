@@ -65,12 +65,12 @@ plugins:
       ControlCenter:
         disabled: false
         method: pip
-        pip: https://github.com/FracktalWorks/ControlCenter/archive/{target_version}.zip
+        pip: https://github.com/AddiwiseTech/ControlCenter/archive/{target_version}.zip
         prerelease: false
-        release_notes: https://github.com/FracktalWorks/ControlCenter/releases/tag/{target_version}
+        release_notes: https://github.com/AddiwiseTech/ControlCenter/releases/tag/{target_version}
         repo: ControlCenter
         type: github_release
-        user: FracktalWorks
+        user: AddiwiseTech
       pi_support:
         disabled: true
   tracking:

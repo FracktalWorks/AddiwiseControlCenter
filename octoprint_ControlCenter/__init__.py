@@ -11,6 +11,8 @@ from ._version import get_versions
 __version__ = get_versions()['version']
 del get_versions
 
+from .branding import BRAND, release_archive_url
+
 # import time
 # import subprocess
 # from threading import Timer
@@ -211,21 +213,23 @@ sudo python3 main.py
     def get_update_information(self):
         return dict(
             ControlCenter=dict(
-                displayName="ControlCenter",
+                displayName=BRAND["product"],
                 displayVersion=self._plugin_version,
                 # version check: github repository
                 type="github_release",
-                user="FracktalWorks",
-                repo="ControlCenter",
+                user=BRAND["repo_user"],
+                repo=BRAND["repo_name"],
                 current=self._plugin_version,
 
                 # update method: pip
-                pip="https://github.com/FracktalWorks/ControlCenter/archive/{target_version}.zip"
+                pip=release_archive_url()
             )
         )
 
 
-__plugin_name__ = "ControlCenter"
+# Human-readable name in OctoPrint's plugin manager. The plugin *identifier*
+# stays "ControlCenter" (setup.py) so softwareupdate check keys keep matching.
+__plugin_name__ = BRAND["product"]
 __plugin_version__ = __version__
 __plugin_pythoncompat__ = ">=3,<4"
 

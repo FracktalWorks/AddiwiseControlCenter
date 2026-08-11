@@ -90,11 +90,16 @@
     <file>img/icons/wrench.png</file>
     <file>img/icons/wrench_selected.png</file>
     <file>img/Logos/control_center_logo_text.png</file>
-    <file>img/Logos/Fracktal Logo_Transparent.png</file>
     <file>img/Logos/control_center_logo.png</file>
-    <file>img/Logos/Fracktal Logo.png</file>
-    <file>img/Logos/fracktal.png</file>
-    <file>img/Logos/thumbnail.png</file>
+    <!-- Fracktal-branded artwork is deliberately NOT compiled into this OEM
+         build. The PNGs stay on disk so rebases from production stay clean,
+         but shipping a competitor's mark inside the Addiwise binary would be
+         wrong. Re-add these lines if this branch is ever merged back. -->
+    <file>img/Logos/addiwise_logo.png</file>
+    <file>img/Logos/addiwise_logo_white.png</file>
+    <file>img/Logos/addiwise_mark.png</file>
+    <file>img/Logos/addiwise_mark_white.png</file>
+    <file>img/Logos/addiwise_thumbnail.png</file>
   </qresource>
   <qresource prefix="Filament Paths">
     <file>img/Filament Paths/singleLoaded.png</file>
