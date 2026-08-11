@@ -23,6 +23,31 @@ the layer.
 
 ---
 
+## Getting the code
+
+```bash
+git clone https://github.com/FracktalWorks/AddiwiseControlCenter.git
+cd AddiwiseControlCenter
+git remote add upstream https://github.com/FracktalWorks/ControlCenter.git
+```
+
+The shipping branch is `production` (the repo default).
+
+> **Cloning on Windows:** some paths under
+> `ui/calibrate_screen/cameraToolOffsetCalibration/` and
+> `ui/filament_management_screen/nozzleChangeWizard/` exceed the 260-character
+> `MAX_PATH` limit. A plain clone into a deep directory fails partway with
+> `Filename too long` and leaves a broken checkout that imports incorrectly.
+> Clone near the drive root, and enable long paths:
+>
+> ```bash
+> git config --global core.longpaths true
+> ```
+
+Tooling: PyQt5 (`pyrcc5` must be on `PATH`) and Pillow for the asset script.
+
+---
+
 ## How the branding layer works
 
 `branding.py` is a plain dict plus four helpers. It is deliberately
