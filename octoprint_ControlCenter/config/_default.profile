@@ -22,7 +22,7 @@ extruder:
     - 0.0
   sharedNozzle: false
 heatedBed: true
-heatedChamber: false
+heatedChamber: true
 id: _default
 model: Addiwise Series
 name: Twin Dragon 600

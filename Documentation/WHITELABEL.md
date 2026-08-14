@@ -18,6 +18,7 @@ the layer.
 | Change a name, email or support URL | Edit `BRAND` in `branding.py`. Done. |
 | Swap the logo artwork | Run `tools/make_brand_assets.py`, register in `resource.qrc`, recompile, point `BRAND` at the new files. See [Rebranding](#rebranding-from-scratch). |
 | Change where updates come from | Edit `repo_user`/`repo_name` in `branding.py` **and** the `softwareupdate` block in `config/config.yaml`. Both. See [Update channel](#the-update-channel). |
+| Brand the OctoPrint web UI | Run `tools/deploy_octoprint_logo.py` on the printer. See [OctoPrint web UI logo](#octoprint-web-ui-logo). |
 | Pull in upstream fixes | See [Syncing with upstream](#syncing-with-upstream). |
 | Cut a release | See [Releasing](#releasing). |
 
@@ -244,13 +245,33 @@ grep -rn "Fracktal\|fracktal" --include=*.py --include=*.ui --include=*.qrc \
      | grep -v resource_rc.py
 ```
 
-### Fracktal artwork is intentionally not compiled in
+### Fracktal artwork is removed from this build
 
-The Fracktal PNGs are still **on disk** — so merges from `production` stay clean
-— but they are **unregistered from `resource.qrc`**, so they never enter the
-Addiwise binary. Shipping a competitor's mark inside an OEM product would be
-wrong even unused. `resource.qrc` carries a comment explaining this; if a merge
+The Fracktal PNGs have been **deleted** from `ui/resources/img/Logos/` (they were
+previously only unregistered from `resource.qrc`). If a merge from `production`
+re-introduces them — or re-adds their `<file>` lines to `resource.qrc` — remove
+them again. Shipping a competitor's mark inside an OEM product would be wrong
+even unused. `resource.qrc` carries a comment explaining this; if a merge
 re-adds those `<file>` lines, remove them again and recompile.
+
+### OctoPrint web UI logo
+
+OctoPrint's web interface header icon, favicon and login-page logo are static
+files inside the `octoprint` package (`static/img/tentacle-*.png` and
+`static/img/logo.svg`) — they are **not** configurable from `config.yaml`. To
+brand the browser UI with the Addiwise logo, run the deployment script on the
+printer:
+
+```bash
+# run from the repo root, inside the OctoPrint venv if possible
+python tools/deploy_octoprint_logo.py
+# or point it at the OctoPrint package explicitly
+python tools/deploy_octoprint_logo.py --octoprint-dir /home/pi/oprint/lib/python3.11/site-packages/octoprint
+sudo service octoprint restart   # then hard-refresh the browser (Ctrl+F5)
+```
+
+The script backs up the original files to `static/img/_brand_backup_<date>/`
+so the change is reversible.
 
 ---
 

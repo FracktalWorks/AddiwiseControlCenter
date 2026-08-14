@@ -737,11 +737,14 @@ class OctoPrintWebSocket(QThread):
                                 'tool1Actual': temp(data, "tool1", "actual"),
                                 'tool1Target': temp(data, "tool1", "target"),
                                 'bedActual': temp(data, "bed", "actual"),
-                                'bedTarget': temp(data, "bed", "target")
+                                'bedTarget': temp(data, "bed", "target"),
+                                'chamberActual': temp(data, "chamber", "actual"),
+                                'chamberTarget': temp(data, "chamber", "target")
                             }
                             self.logger.debug(f"Temperature update: Tool0: {temperatures['tool0Actual']}°C/{temperatures['tool0Target']}°C, "
                                             f"Tool1: {temperatures['tool1Actual']}°C/{temperatures['tool1Target']}°C, "
-                                            f"Bed: {temperatures['bedActual']}°C/{temperatures['bedTarget']}°C")
+                                            f"Bed: {temperatures['bedActual']}°C/{temperatures['bedTarget']}°C, "
+                                            f"Chamber: {temperatures['chamberActual']}°C/{temperatures['chamberTarget']}°C")
                             try:
                                 self.temperatures_signal.emit(temperatures)
                             except Exception as e:

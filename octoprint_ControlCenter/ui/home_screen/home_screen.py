@@ -26,7 +26,8 @@ class HomeScreen(QWidget):
         self.is_printing = False
         self.temperature_data = {"tool0": {"actual": 0, "target": 0},
                                  "tool1": {"actual": 0, "target": 0},
-                                 "bed": {"actual": 0, "target": 0}}
+                                 "bed": {"actual": 0, "target": 0},
+                                 "chamber": {"actual": 0, "target": 0}}
 
         # Job info
         self.current_file = "No file selected"
@@ -73,6 +74,11 @@ class HomeScreen(QWidget):
         self.bedActualTemperature = self.findChild(QLabel, "bedActualTemperature")
         self.bedTempBar = self.findChild(QProgressBar, "bedTempBar")
 
+        # Temperature displays - Chamber
+        self.chamberTargetTemperature = self.findChild(QLabel, "chamberTargetTemperature")
+        self.chamberActualTemperature = self.findChild(QLabel, "chamberActualTemperature")
+        self.chamberTempBar = self.findChild(QProgressBar, "chamberTempBar")
+
         # Status components
         self.printerStatus = self.findChild(QLabel, "printerStatus")
         self.printerStatusColour = self.findChild(QLabel, "printerStatusColour")
@@ -96,6 +102,7 @@ class HomeScreen(QWidget):
             self.tool0TargetTemperature, self.tool0ActualTemperature, self.tool0TempBar, self.tool0Label,
             self.tool1TargetTemperature, self.tool1ActualTemperature, self.tool1TempBar, self.tool1Label,
             self.bedTargetTemperature, self.bedActualTemperature, self.bedTempBar,
+            self.chamberTargetTemperature, self.chamberActualTemperature, self.chamberTempBar,
             self.printerStatus, self.printerStatusColour, self.ipStatus,
             self.fileName, self.printTime, self.timeLeft, self.printProgressBar, self.printPreviewMain,
             self.feedRateLabel, self.flowRateLabel
@@ -144,6 +151,10 @@ class HomeScreen(QWidget):
         self.bedActualTemperature.setText("0°C")
         self.bedTargetTemperature.setText("0°C")
         self.bedTempBar.setValue(0)
+
+        self.chamberActualTemperature.setText("0°C")
+        self.chamberTargetTemperature.setText("0°C")
+        self.chamberTempBar.setValue(0)
 
         # Update print info
         self.fileName.setText(self.current_file)
@@ -367,6 +378,10 @@ class HomeScreen(QWidget):
                 temperature['bedActual'] = 0
             if temperature['bedTarget'] is None:
                 temperature['bedTarget'] = 0
+            if temperature.get('chamberActual') is None:
+                temperature['chamberActual'] = 0
+            if temperature.get('chamberTarget') is None:
+                temperature['chamberTarget'] = 0
 
             # Update extruder 0 temperature
             if temperature['tool0Target'] == 0:
@@ -406,6 +421,19 @@ class HomeScreen(QWidget):
             self.bedTempBar.setValue(int(temperature['bedActual']))
             self.bedActualTemperature.setText(str(int(temperature['bedActual'])) + "°C")
             self.bedTargetTemperature.setText(str(int(temperature['bedTarget'])) + "°C")
+
+            # Update chamber temperature
+            if temperature['chamberTarget'] == 0:
+                self.chamberTempBar.setMaximum(150)
+                self.chamberTempBar.setStyleSheet(styles.bar_heater_cold)
+            elif temperature['chamberActual'] <= temperature['chamberTarget']:
+                self.chamberTempBar.setMaximum(int(temperature['chamberTarget']))
+                self.chamberTempBar.setStyleSheet(styles.bar_heater_heating)
+            else:
+                self.chamberTempBar.setMaximum(int(temperature['chamberActual']))
+            self.chamberTempBar.setValue(int(temperature['chamberActual']))
+            self.chamberActualTemperature.setText(str(int(temperature['chamberActual'])) + "°C")
+            self.chamberTargetTemperature.setText(str(int(temperature['chamberTarget'])) + "°C")
 
         except (KeyError, TypeError, ValueError) as e:
             self.logger.warning(f"Error updating temperature display: {e}")

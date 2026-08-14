@@ -728,6 +728,17 @@ class octoprintAPI:
         headers = {'content-type': 'application/json', 'X-Api-Key': self.apiKey}
         requests.post(url, data=json.dumps(payload), headers=headers)
 
+    def setChamberTemperature(self, target):
+        """
+        Sets the given target temperature on the printer's chamber heater.
+
+        target: Target temperature to set (0 turns the chamber heater off).
+        """
+        url = 'http://' + self.ip + '/api/printer/chamber'
+        payload = {'command': 'target', 'target': target}
+        headers = {'content-type': 'application/json', 'X-Api-Key': self.apiKey}
+        requests.post(url, data=json.dumps(payload), headers=headers)
+
     def setbedOffset(self, offset):
         """
         Sets the given temperature offset on the printer's bed.

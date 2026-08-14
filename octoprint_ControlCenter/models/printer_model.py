@@ -64,7 +64,8 @@ class PrinterModel(QObject):
         self.temperatures = {
             'tool0Actual': 0, 'tool0Target': 0,
             'tool1Actual': 0, 'tool1Target': 0,
-            'bedActual': 0, 'bedTarget': 0
+            'bedActual': 0, 'bedTarget': 0,
+            'chamberActual': 0, 'chamberTarget': 0
         }
         self.printer_status = "Offline"
         self.active_extruder = 0
@@ -311,6 +312,10 @@ class PrinterModel(QObject):
             temp_data['bedActual'] = 0
         if temp_data['bedTarget'] is None:
             temp_data['bedTarget'] = 0
+        if temp_data.get('chamberActual') is None:
+            temp_data['chamberActual'] = 0
+        if temp_data.get('chamberTarget') is None:
+            temp_data['chamberTarget'] = 0
         self.temperatures = temp_data
         self.temperatures_updated.emit(temp_data)
 
