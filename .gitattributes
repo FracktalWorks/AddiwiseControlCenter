@@ -1,4 +1,4 @@
-﻿octoprint_ControlCenter/_version.py export-subst
+octoprint_ControlCenter/_version.py export-subst
 
 # Normalize line endings: store as LF in repo, checkout as LF everywhere
 # Prevents Windows CRLF flipping files and causing false dirty states in versioneer
